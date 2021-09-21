@@ -1,0 +1,8 @@
+[
+  {
+    "discordWebhook": "https://discord.com/api/webhooks/...",
+    "courseId": "1234567899",
+    "includeType": ["CDITP"],
+    "discordMessage": "<@1234567> check this out"
+  }
+]
