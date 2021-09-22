@@ -55,12 +55,12 @@ const fetchAndCheckAvailable = async () => {
   const isEmptyStore = Object.keys(shiftStore).length === 0;
 
   await Promise.all(
-    config.map(async (course) => {
+    config.map(async (course, i) => {
       const { data } = await axios.get(
         `https://fenix.tecnico.ulisboa.pt/api/fenix/v1/courses/${course.courseId}/schedule?academicTerm=2021/2022&lang=pt-PT`
       );
       data.shifts.forEach((shift) => {
-        const shiftId = `${course.courseId}-${shift.name}`;
+        const shiftId = `${i}-${course.courseId}-${shift.name}`;
 
         if (!isEmptyStore) {
           if (!shiftStore[shiftId]) {
@@ -77,9 +77,7 @@ const fetchAndCheckAvailable = async () => {
       });
     })
   );
-
-  console.log(shiftStore);
 };
 
-fetchAndCheckAvailable();
+fetchAndCheckAvailable().then(() => console.log(shiftStore));
 setInterval(fetchAndCheckAvailable, 10 * 1000);
