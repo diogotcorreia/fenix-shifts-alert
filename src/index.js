@@ -7,8 +7,9 @@ const isShiftWanted = (includedTypes, shift) =>
   includedTypes.some((type) => shift.name.startsWith(type));
 
 const hasChanged = (oldOccupation, newOccupation) =>
-  oldOccupation.current !== newOccupation.current ||
-  oldOccupation.max !== newOccupation.max;
+  (oldOccupation.current !== newOccupation.current ||
+    oldOccupation.max !== newOccupation.max) &&
+  newOccupation.max >= 0;
 
 const sendDiscordChangedShiftMessage = (course, shift) => {
   axios.post(course.discordWebhook, {
